@@ -42,29 +42,8 @@ export default function EditMemberPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        setLoading(true);
-        const [memberRes, packagesRes] = await Promise.all([
-          fetch(`/api/members/${memberId}`),
-          fetch("/api/packages"),
-        ]);
-
-        if (!memberRes.ok) throw new Error("Failed to fetch member");
-        if (!packagesRes.ok) throw new Error("Failed to fetch packages");
-
-        const memberData = await memberRes.json();
-        const packagesData = await packagesRes.json();
-
-        setMember(memberData);
-        setPackages(packagesData);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to load data");
-      } finally {
-        setLoading(false);
-      }
-    }
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [memberId]);
 
   async function fetchData() {
